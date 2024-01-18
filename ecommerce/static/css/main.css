@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Playpen+Sans&display=swap');
+
 body{
 	background-color: hsl(0, 0%, 98%);
+	font-family: "Jost", sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -26,11 +29,11 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .bg-dark{
-	background-color: #4f868c!important;
+	background-color: #4D00E6!important;
 }
 
 #cart-icon{
-	width:25px;
+	width:28px;
 	display: inline-block;
 	margin-left: 15px;
 }
@@ -96,4 +99,64 @@ h1,h2,h3,h4,h5,h6{
 
 .hidden{
 	display: none!important;
+}
+
+.btn-warning {
+    color: #fff;
+    background-color: transparent;
+    border-color: transparent;
+	font-size: 18px;
+}
+
+.btn-warning:hover {
+    color: #3d0099;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.btn-warning:focus {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+.navbar {
+    height: 70px;
+    padding-left: 75px; 
+	padding-right: 75px;
+}
+
+.btn-warning img {
+    vertical-align: middle;
+    margin-right: 1px;
+}
+
+.input-container {
+	width: 600px;
+	position: relative;
+	margin: 0 auto; 
+  }
+  
+  .icon {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	fill: #4D00E6;
+  }
+  
+  .input {
+	width: 100%;
+	height: 43px;
+	padding: 10px 40px 10px 10px; 
+	transition: .2s linear;
+	border: 2.5px solid #4D00E6;
+	font-size: 14px;
+	border-radius: 25px;
+  }
+  .input:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }

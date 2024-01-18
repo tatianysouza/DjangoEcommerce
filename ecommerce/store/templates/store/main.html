@@ -51,7 +51,8 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="{% url 'store' %}">Ecom</a>
+		<a href="{% url 'store' %}"><img src="{% static 'images/Dazzle.png' %}" alt="Seu Ícone" width="130" ></a>
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
 		</button>
@@ -59,12 +60,37 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		  <ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-			  <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
+			  
 			</li>
 	   
 		  </ul>
+		  <div class="input-container">
+			<input type="text" name="text" class="input" placeholder="O que você está procurando?">
+			<span class="icon"> 
+				<svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+					<g id="SVGRepo_iconCarrier"> 
+						<path opacity="1" d="M14 5H20" stroke="#3d0099" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+						<path opacity="1" d="M14 8H17" stroke="#3d0099" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+						<path d="M21 11.5C21 16.75 16.75 21 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2" stroke="#3d0099" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+						<path opacity="1" d="M22 22L20 20" stroke="#3d0099" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+					</g>
+				</svg>
+			</span>
+			
+		  </div>		  
+			
+		  
 		  <div class="form-inline my-2 my-lg-0">
-			   <a href="#"class="btn btn-warning">Login</a>
+			<a href="#" class="btn btn-warning">
+				<img src="{% static 'images/coracao.png' %}" alt="Login Icon" style="width: 20px; height: 20px;">
+				Favoritos
+			</a>
+			<a href="#" class="btn btn-warning">
+				<img src="{% static 'images/pessoa.png' %}" alt="Login Icon" style="width: 20px; height: 20px;">
+				Login
+			</a>
 			   
 			   <a href="{% url 'cart' %}">
 				  <img  id="cart-icon" src="{% static 'images/cart.png' %}">
