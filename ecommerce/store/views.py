@@ -1,10 +1,35 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 import datetime
 
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
+
+from django.contrib.auth.models import User
+
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+
+
+def register(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        raw_password = request.POST["password"]
+        email = request.POST["email"]
+
+        try:
+            validate_email(email)
+        except ValidationError:
+            pass
+
+        user = User.objects.create_user(
+            username=username, email=email, password=raw_password
+        )
+
+        return redirect("login")
+
+    return render(request, "store/register.html")
 
 
 def store(request):
@@ -25,6 +50,7 @@ def cart(request):
     context = {"items": items, "order": order, "cartItems": cartItems}
     return render(request, "store/cart.html", context)
 
+
 def checkout(request):
     data = cartData(request)
     cartItems = data["cartItems"]
@@ -33,6 +59,7 @@ def checkout(request):
 
     context = {"items": items, "order": order, "cartItems": cartItems}
     return render(request, "store/checkout.html", context)
+
 
 def updateItem(request):
     data = json.loads(request.body.decode("utf-8"))
@@ -59,6 +86,7 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse("item was added", safe=False)
+
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
@@ -88,20 +116,22 @@ def processOrder(request):
 
     return JsonResponse("Payment complete!", safe=False)
 
+
 def search_results(request):
     data = cartData(request)
     cartItems = data["cartItems"]
 
-    search_query = request.GET.get('search', '')
+    search_query = request.GET.get("search", "")
     products = Product.objects.filter(name__icontains=search_query)
 
     context = {"products": products, "cartItems": cartItems}
     return render(request, "store/search_results.html", context)
+
 
 def product_detail(request, product_id):
     data = cartData(request)
     cartItems = data["cartItems"]
 
     product = Product.objects.get(id=product_id)
-    context = {'product': product, 'cartItems': cartItems}
-    return render(request, 'store/product_detail.html', context)
+    context = {"product": product, "cartItems": cartItems}
+    return render(request, "store/product_detail.html", context)

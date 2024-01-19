@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -8,7 +11,7 @@ class Customer(models.Model):
     email = models.CharField(max_length=200, null=True)
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else "Sem nome"
 
 
 class Product(models.Model):
@@ -85,3 +88,19 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+
+@receiver(post_save, sender=User)
+def create_customer(sender, instance, created, **kwargs):
+    if created:
+        try:
+            Customer.objects.get_or_create(
+                user=instance, name=instance.username, email=instance.email
+            )
+        except Exception as e:
+            print(f"Erro ao criar Customer para o User {instance.username}: {str(e)}")
+
+
+@receiver(post_save, sender=User)
+def save_customer(sender, instance, **kwargs):
+    pass

@@ -87,10 +87,23 @@
 				<img src="{% static 'images/coracao.png' %}" alt="Login Icon" style="width: 20px; height: 20px;">
 				Favoritos
 			</a>
-			<a href="#" class="btn btn-warning">
-				<img src="{% static 'images/pessoa.png' %}" alt="Login Icon" style="width: 20px; height: 20px;">
-				Login
-			</a>
+			<div class="dropdown">
+				<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  {% if request.user.is_authenticated %}
+					{{ request.user.username }}
+				  {% else %}
+					Login
+				  {% endif %}
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				  {% if request.user.is_authenticated %}
+					<a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
+				  {% else %}
+					<a class="dropdown-item" href="{% url 'login' %}">Login</a>
+					<a class="dropdown-item" href="{% url 'register' %}">Cadastro</a>
+				  {% endif %}
+				</div>
+			  </div>							
 			   
 			   <a href="{% url 'cart' %}">
 				  <img  id="cart-icon" src="{% static 'images/cart.png' %}">
