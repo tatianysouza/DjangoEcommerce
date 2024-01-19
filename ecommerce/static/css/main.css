@@ -160,3 +160,71 @@ h1,h2,h3,h4,h5,h6{
     outline: none !important;
     box-shadow: none !important;
 }
+
+.product-detail-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+	margin-top: 5%;
+	gap: 5%;
+}
+
+.product-image {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.product-info {
+    flex: 1;
+}
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+  }
+  
+  .container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    transition: 100ms;
+	margin-top: 2%;
+}
+
+.checkmark {
+    position: absolute;
+    top: -2px;
+    left: 21px;
+    height: 2em;
+    width: 2em;
+    transition: 100ms;
+    animation: dislike_effect 400ms ease;
+}
+
+.container input:checked ~ .checkmark path {
+    fill: #FF5353;
+    stroke-width: 0;
+}
+
+.container input ~ .checkmark path {
+    fill: none;
+    stroke-width: 20px;
+}
+
+.checkmark-background {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+.button-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

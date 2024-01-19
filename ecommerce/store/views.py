@@ -97,3 +97,11 @@ def search_results(request):
 
     context = {"products": products, "cartItems": cartItems}
     return render(request, "store/search_results.html", context)
+
+def product_detail(request, product_id):
+    data = cartData(request)
+    cartItems = data["cartItems"]
+
+    product = Product.objects.get(id=product_id)
+    context = {'product': product, 'cartItems': cartItems}
+    return render(request, 'store/product_detail.html', context)
