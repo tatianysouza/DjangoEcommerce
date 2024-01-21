@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -51,6 +52,7 @@ def cart(request):
     return render(request, "store/cart.html", context)
 
 
+@login_required(login_url='login')
 def checkout(request):
     data = cartData(request)
     cartItems = data["cartItems"]
