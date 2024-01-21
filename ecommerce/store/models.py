@@ -75,10 +75,14 @@ class OrderItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        if self.order.complete:
-            return f'{self.order.customer.name} - {self.order.transaction_id}'
+        if self.order is not None:
+            if self.order.complete:
+                return f'{self.order.customer.name} - {self.order.transaction_id}'
+            else:
+                return f'{self.order.customer.name} - Carrinho'
         else:
-            return f'{self.order.customer.name} - Carrinho'
+            return 'OrderItem sem pedido associado'
+
 
     @property
     def get_total(self):
@@ -112,3 +116,33 @@ def create_customer(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_customer(sender, instance, **kwargs):
     pass
+
+class Pedido(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    transaction_id = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
+    state = models.CharField(max_length=200, null=True, blank=True)
+    zipcode = models.CharField(max_length=200, null=True, blank=True)
+    order_items = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return f'{self.customer.name} - {self.transaction_id}'
+
+@receiver(post_save, sender=ShippingAddress)
+def create_pedido(sender, instance, created, **kwargs):
+    order = instance.order
+    if order.complete:
+        order_items_str = ', '.join([f'{item.product.name} ({item.quantity})' for item in order.orderitem_set.all()])
+        pedido = Pedido.objects.create(
+            customer=order.customer,
+            transaction_id=order.transaction_id,
+            address=instance.address,
+            city=instance.city,
+            state=instance.state,
+            zipcode=instance.zipcode,
+            order_items=order_items_str,
+        )
+        order.orderitem_set.all().delete()
+        order.delete() 
+ 
