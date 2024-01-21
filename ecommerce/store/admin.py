@@ -3,9 +3,9 @@ from django.contrib import admin
 # Register your models here.
 from .models import *
 
-admin.site.register(Customer)
-admin.site.register(Product)
-admin.site.register(Order)
-admin.site.register(OrderItem)
-admin.site.register(ShippingAddress)
+admin.site.register(Cliente)
+admin.site.register(Produto)
+admin.site.register(Carrinho)
+admin.site.register(CarrinhoItem)
+admin.site.register(EnderecoEnvio)
 admin.site.register(Pedido)

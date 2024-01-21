@@ -36,7 +36,7 @@ def store(request):
     data = cartData(request)
     cartItems = data["cartItems"]
 
-    products = Product.objects.all()
+    products = Produto.objects.all()
     context = {"products": products, "cartItems": cartItems}
     return render(request, "store/store.html", context)
 
@@ -69,11 +69,11 @@ def updateItem(request):
     print("Action:", action)
     print("productId:", productId)
 
-    customer = request.user.customer
-    product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    customer = request.user.cliente
+    product = Produto.objects.get(id=productId)
+    order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
 
-    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    orderItem, created = CarrinhoItem.objects.get_or_create(order=order, product=product)
 
     if action == "add":
         orderItem.quantity = orderItem.quantity + 1
@@ -93,8 +93,8 @@ def processOrder(request):
     data = json.loads(request.body)
 
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        customer = request.user.cliente
+        order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
     else:
         customer, order = guestOrder(request, data)
 
@@ -105,7 +105,7 @@ def processOrder(request):
     order.save()
 
     if order.shipping == True:
-        ShippingAddress.objects.create(
+        EnderecoEnvio.objects.create(
             customer=customer,
             order=order,
             address=data["shipping"]["address"],
@@ -122,7 +122,7 @@ def search_results(request):
     cartItems = data["cartItems"]
 
     search_query = request.GET.get("search", "")
-    products = Product.objects.filter(name__icontains=search_query)
+    products = Produto.objects.filter(name__icontains=search_query)
 
     context = {"products": products, "cartItems": cartItems}
     return render(request, "store/search_results.html", context)
@@ -132,6 +132,6 @@ def product_detail(request, product_id):
     data = cartData(request)
     cartItems = data["cartItems"]
 
-    product = Product.objects.get(id=product_id)
+    product = Produto.objects.get(id=product_id)
     context = {"product": product, "cartItems": cartItems}
     return render(request, "store/product_detail.html", context)
