@@ -6,25 +6,31 @@
             <div class="box-element" id="form-wrapper">
                 <form id="form">
                     {% csrf_token %}
-                    <div id="shipping-info">
+                    {% if cartItems > 0 %}
+                        <div id="shipping-info">
+                            <hr>
+                            <p>Shipping Information:</p>
+                            <hr>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="address" placeholder="Address..">
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="city" placeholder="City..">
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="state" placeholder="State..">
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+                            </div>
+                        </div>
                         <hr>
-                        <p>Shipping Information:</p>
-                        <hr>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="address" placeholder="Address..">
-                        </div>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="city" placeholder="City..">
-                        </div>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="state" placeholder="State..">
-                        </div>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                        </div>
-                    </div>
-                    <hr>
-                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                        <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                    {% else %}
+                        <center>
+                        <p>Seu carrinho está vazio.</p>
+                        </center>
+                    {% endif %}
                 </form>
             </div>
             <br>
@@ -36,7 +42,7 @@
         </div>
         <div class="col-lg-6">
             <div class="box-element">
-                <a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+                <a  class="btn btn-outline-dark" href="{% url 'cart' %}">← Back to Cart</a>
                 <hr>
                 <h3>Order Summary</h3>
                 <hr>
