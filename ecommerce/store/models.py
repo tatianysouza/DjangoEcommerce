@@ -22,21 +22,22 @@ class Produto(models.Model):
     GENEROS = (
         ('M', 'Masculino'),
         ('F', 'Feminino'),
+        ('U', 'Unissex'),
     )
 
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
     image = models.ImageField(null=True, blank=True)
     genero = models.CharField(max_length=1, choices=GENEROS, blank=True)
-    cor = models.CharField(max_length=200, blank=True)
+    cor = models.CharField(max_length=200, null=True, blank=True)
     departamento_bs = models.CharField(max_length=200, null=True, blank=True)
-    indicado_para = models.CharField(max_length=200, blank=True)
-    material = models.CharField(max_length=200, blank=True)
-    material_interno = models.CharField(max_length=200, blank=True)
-    altura_do_cano = models.CharField(max_length=200, blank=True)
-    solado = models.CharField(max_length=200, blank=True)
-    peso_do_produto = models.FloatField(default=0.0)
-    marca = models.CharField(max_length=200, blank=True)
+    indicado_para = models.CharField(max_length=200, null=True, blank=True)
+    material = models.CharField(max_length=200, null=True, blank=True)
+    material_interno = models.CharField(max_length=200, null=True, blank=True)
+    altura_do_cano = models.CharField(max_length=200, null=True, blank=True)
+    solado = models.CharField(max_length=200, null=True, blank=True)
+    peso_do_produto = models.FloatField(blank=True, null=True)
+    marca = models.CharField(max_length=200,null=True, blank=True)
     importante = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
