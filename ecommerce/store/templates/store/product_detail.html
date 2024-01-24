@@ -7,19 +7,34 @@
     <div class="product-info">
         <h1>{{ product.name }}</h1>
         <h2>R$ {{ product.price }}</h2>
+        <hr>
         <div class="button-container">
-            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Adicionar ao carrinho</button>
-            <label class="container">
-                <input type="checkbox">
-                <div class="checkmark-background"></div>
-                <div class="checkmark">
-                    <svg viewBox="0 0 256 256" width="18px" height="18px">
-                        <rect fill="none" height="256" width="256"></rect>
-                        <path d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z" stroke-width="20px" stroke="#000" fill="none"></path>
-                    </svg>
+            {% for tamanho in product.tamanhoproduto_set.all %}
+                <div class="prod-radio-tile-group">
+                    <div class="prod-input-container">
+                        <input id="size-{{ tamanho.id }}" class="prod-radio-button" type="radio" name="size">
+                        <div class="prod-radio-tile">
+                            <label for="size-{{ tamanho.id }}" class="prod-radio-tile-label">{{ tamanho.tamanho }}</label>
+                        </div>
+                    </div>
                 </div>
-            </label>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="button-container">
+            <button id="add-to-cart-button" data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart" disabled>Adicionar ao carrinho</button>
         </div>              
     </div>
 </div>
+<script>
+    var sizeRadios = document.querySelectorAll('.prod-radio-button');
+
+    var addToCartButton = document.getElementById('add-to-cart-button');
+    
+    for (var i = 0; i < sizeRadios.length; i++) {
+        sizeRadios[i].addEventListener('change', function() {
+            addToCartButton.disabled = false;
+        });
+    }
+    </script>
 {% endblock content %}
