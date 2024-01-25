@@ -281,6 +281,11 @@ h6 {
     transition: transform 300ms ease;
 }
 
+.prod-radio-tile-group .prod-input-container .prod-radio-tile:hover {
+    background-color: white;
+    color: #9283F1; 
+}
+
 .prod-radio-tile-group .prod-input-container .prod-radio-tile-label {
     text-align: center;
     font-size: 0.75rem;
