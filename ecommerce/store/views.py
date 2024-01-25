@@ -64,30 +64,28 @@ def checkout(request):
 
 
 def updateItem(request):
-    data = json.loads(request.body.decode("utf-8"))
-    productId = data["productId"]
-    action = data["action"]
-
-    print("Action:", action)
-    print("productId:", productId)
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+    size = data['size']
 
     customer = request.user.cliente
     product = Produto.objects.get(id=productId)
     order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
 
-    orderItem, created = CarrinhoItem.objects.get_or_create(order=order, product=product)
+    orderItem, created = CarrinhoItem.objects.get_or_create(order=order, product=product, size=size)
 
-    if action == "add":
-        orderItem.quantity = orderItem.quantity + 1
-    elif action == "remove":
-        orderItem.quantity = orderItem.quantity - 1
+    if action == 'add':
+        orderItem.quantity = (orderItem.quantity + 1)
+    elif action == 'remove':
+        orderItem.quantity = (orderItem.quantity - 1)
 
     orderItem.save()
 
     if orderItem.quantity <= 0:
         orderItem.delete()
 
-    return JsonResponse("item was added", safe=False)
+    return JsonResponse('Item was added', safe=False)
 
 
 def processOrder(request):

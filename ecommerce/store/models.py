@@ -134,6 +134,7 @@ class CarrinhoItem(models.Model):
     product = models.ForeignKey(Produto, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Carrinho, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
+    size = models.CharField(max_length=2, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -150,6 +151,8 @@ class CarrinhoItem(models.Model):
         total = self.product.price * self.quantity
         return total
 
+    class Meta:
+        unique_together = ('product', 'order', 'size')
     class Meta:
         verbose_name = "Carrinho Item"
         verbose_name_plural = "Carrinho Itens"
