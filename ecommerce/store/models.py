@@ -197,7 +197,6 @@ class Pedido(models.Model):
     city = models.CharField(max_length=200, null=True, blank=True)
     state = models.CharField(max_length=200, null=True, blank=True)
     zipcode = models.CharField(max_length=200, null=True, blank=True)
-    order_items = models.TextField(null=True, blank=True)
     
     def __str__(self):
         return f'{self.customer.name} - {self.transaction_id}'
@@ -206,6 +205,14 @@ class Pedido(models.Model):
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"
 
+class PedidoItem(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    product = models.ForeignKey(Produto, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField()
+    size = models.CharField(max_length=2)
+
+    def __str__(self):
+        return f'{self.product.name} - {self.size} ({self.quantity})'
 
 @receiver(post_save, sender=EnderecoEnvio)
 def create_pedido(sender, instance, created, **kwargs):
@@ -221,5 +228,13 @@ def create_pedido(sender, instance, created, **kwargs):
             zipcode=instance.zipcode,
             order_items=order_items_str,
         )
+        for item in order.carrinhoitem_set.all():
+            PedidoItem.objects.create(
+                pedido=pedido,
+                product=item.product,
+                quantity=item.quantity,
+                size=item.size,
+            )
         order.carrinhoitem_set.all().delete()
         order.delete()
+        
