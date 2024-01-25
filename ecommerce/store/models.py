@@ -218,7 +218,6 @@ class PedidoItem(models.Model):
 def create_pedido(sender, instance, created, **kwargs):
     order = instance.order
     if order.complete:
-        order_items_str = ', '.join([f'{item.product.name} ({item.quantity})' for item in order.carrinhoitem_set.all()])
         pedido = Pedido.objects.create(
             customer=order.customer,
             transaction_id=order.transaction_id,
@@ -226,7 +225,6 @@ def create_pedido(sender, instance, created, **kwargs):
             city=instance.city,
             state=instance.state,
             zipcode=instance.zipcode,
-            order_items=order_items_str,
         )
         for item in order.carrinhoitem_set.all():
             PedidoItem.objects.create(
@@ -235,6 +233,9 @@ def create_pedido(sender, instance, created, **kwargs):
                 quantity=item.quantity,
                 size=item.size,
             )
+            tamanho_produto = TamanhoProduto.objects.get(produto=item.product, tamanho=item.size)
+            tamanho_produto.quantidade -= item.quantity
+            tamanho_produto.save()
         order.carrinhoitem_set.all().delete()
         order.delete()
         
