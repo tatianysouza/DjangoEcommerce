@@ -4,7 +4,8 @@ for(i = 0; i < updateBtns.length; i++) {
     updateBtns[i].addEventListener("click", function() {
         var productId = this.dataset.product;
         var action = this.dataset.action;
-        var size = document.querySelector('input[name="size"]:checked').value;  
+        var sizeElement = document.querySelector('input[name="size"]:checked');
+        var size = sizeElement ? sizeElement.value : this.dataset.size;  
         console.log("productId:", productId, "Action:", action, "Size:", size);
       
         console.log("USER:", user);

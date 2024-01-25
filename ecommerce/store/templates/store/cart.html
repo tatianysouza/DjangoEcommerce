@@ -34,10 +34,10 @@
                     <div style="flex:1">
                         <p class="quantity">x{{item.quantity}}</p>
                         <div class="quantity">
-                            <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
-                    
-                            <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
-                        </div>
+                            <img data-product="{{item.product.id}}" data-action="add" data-size="{{item.size}}" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+                            
+                            <img data-product="{{item.product.id}}" data-action="remove" data-size="{{item.size}}" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+                        </div>                        
                     </div>
                     <div style="flex:1"><p>R${{item.get_total}}</p></div>
                 </div>
