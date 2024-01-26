@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 
@@ -69,6 +69,10 @@ class Produto(models.Model):
     class Meta:
         verbose_name = "Produto"
         verbose_name_plural = "Produtos"
+
+@receiver(pre_delete, sender=Produto)
+def product_delete(sender, instance, **kwargs):
+    CarrinhoItem.objects.filter(product=instance).delete()
 
 class TamanhoProduto(models.Model):
     TAMANHOS = (
