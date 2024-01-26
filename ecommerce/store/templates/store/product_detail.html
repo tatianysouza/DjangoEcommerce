@@ -10,15 +10,17 @@
         <h2>R$ {{ product.price }}</h2>
         <hr>
         <div class="button-container">
-            {% for tamanho in product.tamanhoproduto_set.all %}
-                <div class="prod-radio-tile-group">
-                    <div class="prod-input-container">
-                        <input id="size-{{ tamanho.id }}" class="prod-radio-button" type="radio" name="size" value="{{ tamanho.tamanho }}">
-                        <div class="prod-radio-tile">
-                            <label for="size-{{ tamanho.id }}" class="prod-radio-tile-label">{{ tamanho.tamanho }}</label>
+            {% for tamanho, is_available in sizes_available %}
+                {% if is_available %}
+                    <div class="prod-radio-tile-group">
+                        <div class="prod-input-container">
+                            <input id="size-{{ tamanho }}" class="prod-radio-button" type="radio" name="size" value="{{ tamanho }}">
+                            <div class="prod-radio-tile">
+                                <label for="size-{{ tamanho }}" class="prod-radio-tile-label">{{ tamanho }}</label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endfor %}
         </div>
         <hr>

@@ -76,7 +76,9 @@ def updateItem(request):
     orderItem, created = CarrinhoItem.objects.get_or_create(order=order, product=product, size=size)
 
     if action == 'add':
-        orderItem.quantity = (orderItem.quantity + 1)
+        tamanho_produto = TamanhoProduto.objects.get(produto=product, tamanho=size)
+        if orderItem.quantity < tamanho_produto.quantidade:
+            orderItem.quantity = (orderItem.quantity + 1)
     elif action == 'remove':
         orderItem.quantity = (orderItem.quantity - 1)
 
@@ -133,5 +135,12 @@ def product_detail(request, product_id):
     cartItems = data["cartItems"]
 
     product = Produto.objects.get(id=product_id)
-    context = {"product": product, "cartItems": cartItems}
+    sizes_in_cart = {item.size: item.quantity for item in CarrinhoItem.objects.filter(product=product, order__customer=request.user.cliente)}
+    sizes_available = [(size.tamanho, size.quantidade > sizes_in_cart.get(size.tamanho, 0)) for size in product.tamanhoproduto_set.all()]
+
+    context = {
+        "product": product, 
+        "cartItems": cartItems, 
+        "sizes_available": sizes_available
+    }
     return render(request, "store/product_detail.html", context)
