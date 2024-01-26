@@ -149,6 +149,10 @@ class CarrinhoItem(models.Model):
                 return f'{self.order.customer.name} - Carrinho'
         else:
             return 'CarrinhoItem sem pedido associado'
+        
+    def check_availability(self):
+        if self.quantity > TamanhoProduto.objects.get(produto=self.product, tamanho=self.size).quantidade:
+            self.delete()
 
     @property
     def get_total(self):

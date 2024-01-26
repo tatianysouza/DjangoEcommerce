@@ -48,6 +48,9 @@ def cart(request):
     order = data["order"]
     items = data["items"]
 
+    for item in items:
+        item.check_availability()
+
     context = {"items": items, "order": order, "cartItems": cartItems}
     return render(request, "store/cart.html", context)
 
@@ -115,6 +118,11 @@ def processOrder(request):
             state=data["shipping"]["state"],
             zipcode=data["shipping"]["zipcode"],
         )
+
+    if order.complete:
+        for item in order.carrinhoitem_set.all():
+            if TamanhoProduto.objects.get(produto=item.product, tamanho=item.size).quantidade == 0:
+                CarrinhoItem.objects.filter(product=item.product, size=item.size).exclude(order__customer=customer).delete()
 
     return JsonResponse("Payment complete!", safe=False)
 
