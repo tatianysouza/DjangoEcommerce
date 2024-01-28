@@ -49,8 +49,8 @@
         document.getElementById('checkout-button').addEventListener('click', function(event) {
             {% if not request.user.is_authenticated %}
                 event.preventDefault();
-                window.location.href = "{% url 'login' %}";
+                window.location.href = "{% url 'register' %}";
             {% endif %}
-        });
+        });        
     </script>       
 {% endblock content %}

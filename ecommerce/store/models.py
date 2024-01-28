@@ -99,9 +99,7 @@ class TamanhoProduto(models.Model):
 
 
 class Carrinho(models.Model):
-    customer = models.ForeignKey(
-        Cliente, on_delete=models.SET_NULL, blank=True, null=True
-    )
+    customer = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null=True)
     date_orderd = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
@@ -136,7 +134,7 @@ class Carrinho(models.Model):
 
 class CarrinhoItem(models.Model):
     product = models.ForeignKey(Produto, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Carrinho, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Carrinho, on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     size = models.CharField(max_length=2, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -168,7 +166,7 @@ class CarrinhoItem(models.Model):
 
 class EnderecoEnvio(models.Model):
     customer = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Carrinho, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Carrinho, on_delete=models.CASCADE, null=True)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)
     state = models.CharField(max_length=200, null=False)

@@ -28,6 +28,17 @@ def register(request):
             username=username, email=email, password=raw_password
         )
 
+        cookieData = cookieCart(request)
+        items = cookieData["items"]
+        customer = user.cliente
+        order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
+
+        for item in items:
+            product = Produto.objects.get(id=item["product"]["id"])
+            CarrinhoItem.objects.create(
+                product=product, order=order, quantity=item["quantity"], size=item["size"]
+            )
+
         return redirect("login")
 
     return render(request, "store/register.html")
