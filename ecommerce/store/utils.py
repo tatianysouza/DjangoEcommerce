@@ -23,6 +23,7 @@ def cookieCart(request):
             order["get_cart_total"] += total
             order["get_cart_items"] += cart[i]["quantity"]
 
+            size = cart[i]["size"]
             item = {
                 "product": {
                     "id": product.id,
@@ -32,6 +33,7 @@ def cookieCart(request):
                 },
                 "quantity": cart[i]["quantity"],
                 "get_total": total,
+                "size": size,
             }
             items.append(item)
 
@@ -39,6 +41,7 @@ def cookieCart(request):
                 order["shipping"] = True
         except:
             pass
+
     return {"cartItems": cartItems, "order": order, "items": items}
 
 

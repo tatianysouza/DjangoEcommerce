@@ -49,10 +49,12 @@ def cart(request):
     items = data["items"]
 
     for item in items:
-        item.check_availability()
+        if isinstance(item, CarrinhoItem):
+            item.check_availability()
 
     context = {"items": items, "order": order, "cartItems": cartItems}
     return render(request, "store/cart.html", context)
+
 
 
 @login_required(login_url='login')
@@ -143,7 +145,12 @@ def product_detail(request, product_id):
     cartItems = data["cartItems"]
 
     product = Produto.objects.get(id=product_id)
-    sizes_in_cart = {item.size: item.quantity for item in CarrinhoItem.objects.filter(product=product, order__customer=request.user.cliente)}
+    
+    if request.user.is_authenticated:
+        sizes_in_cart = {item.size: item.quantity for item in CarrinhoItem.objects.filter(product=product, order__customer=request.user.cliente)}
+    else:
+        sizes_in_cart = {}
+
     sizes_available = [(size.tamanho, size.quantidade > sizes_in_cart.get(size.tamanho, 0)) for size in product.tamanhoproduto_set.all()]
 
     context = {
