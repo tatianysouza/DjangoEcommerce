@@ -13,17 +13,17 @@ def cookieCart(request):
     order = {"get_cart_total": 0, "get_cart_items": 0, "shipping": False}
     cartItems = order["get_cart_items"]
 
-    for i in cart:
+    for productKey in cart:
+        productId, size = productKey.split('-')
         try:
-            cartItems += cart[i]["quantity"]
+            cartItems += cart[productKey]["quantity"]
 
-            product = Produto.objects.get(id=i)
-            total = product.price * cart[i]["quantity"]
+            product = Produto.objects.get(id=productId)
+            total = product.price * cart[productKey]["quantity"]
 
             order["get_cart_total"] += total
-            order["get_cart_items"] += cart[i]["quantity"]
+            order["get_cart_items"] += cart[productKey]["quantity"]
 
-            size = cart[i]["size"]
             item = {
                 "product": {
                     "id": product.id,
@@ -31,7 +31,7 @@ def cookieCart(request):
                     "price": product.price,
                     "imageURL": product.imageURL,
                 },
-                "quantity": cart[i]["quantity"],
+                "quantity": cart[productKey]["quantity"],
                 "get_total": total,
                 "size": size,
             }
