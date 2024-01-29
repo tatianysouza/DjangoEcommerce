@@ -14,7 +14,7 @@ def cookieCart(request):
     cartItems = order["get_cart_items"]
 
     for productKey in cart:
-        productId, size = productKey.split('-')
+        productId, size = productKey.split("-")
         try:
             cartItems += cart[productKey]["quantity"]
 
@@ -48,7 +48,9 @@ def cookieCart(request):
 def cartData(request):
     if request.user.is_authenticated:
         customer = request.user.cliente
-        order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
+        order, created = Carrinho.objects.get_or_create(
+            customer=customer, complete=False
+        )
         items = order.carrinhoitem_set.all()
         cartItems = order.get_cart_items
     else:

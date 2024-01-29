@@ -5,19 +5,50 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0024_alter_produto_departamento_bs_alter_produto_marca'),
+        ("store", "0024_alter_produto_departamento_bs_alter_produto_marca"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TamanhoProduto',
+            name="TamanhoProduto",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tamanho', models.CharField(choices=[('34', '34'), ('35', '35'), ('36', '36'), ('37', '37'), ('38', '38'), ('39', '39'), ('40', '40'), ('41', '41'), ('42', '42'), ('43', '43'), ('44', '44'), ('45', '45')], max_length=2)),
-                ('quantidade', models.PositiveIntegerField()),
-                ('produto', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='store.produto')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "tamanho",
+                    models.CharField(
+                        choices=[
+                            ("34", "34"),
+                            ("35", "35"),
+                            ("36", "36"),
+                            ("37", "37"),
+                            ("38", "38"),
+                            ("39", "39"),
+                            ("40", "40"),
+                            ("41", "41"),
+                            ("42", "42"),
+                            ("43", "43"),
+                            ("44", "44"),
+                            ("45", "45"),
+                        ],
+                        max_length=2,
+                    ),
+                ),
+                ("quantidade", models.PositiveIntegerField()),
+                (
+                    "produto",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="store.produto"
+                    ),
+                ),
             ],
         ),
     ]

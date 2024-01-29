@@ -5,35 +5,48 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0014_pedidoitem'),
+        ("store", "0014_pedidoitem"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProductQuantity',
+            name="ProductQuantity",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField()),
             ],
         ),
         migrations.AddField(
-            model_name='pedido',
-            name='products',
-            field=models.ManyToManyField(through='store.ProductQuantity', to='store.product'),
+            model_name="pedido",
+            name="products",
+            field=models.ManyToManyField(
+                through="store.ProductQuantity", to="store.product"
+            ),
         ),
         migrations.DeleteModel(
-            name='PedidoItem',
+            name="PedidoItem",
         ),
         migrations.AddField(
-            model_name='productquantity',
-            name='pedido',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='store.pedido'),
+            model_name="productquantity",
+            name="pedido",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="store.pedido"
+            ),
         ),
         migrations.AddField(
-            model_name='productquantity',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='store.product'),
+            model_name="productquantity",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="store.product"
+            ),
         ),
     ]

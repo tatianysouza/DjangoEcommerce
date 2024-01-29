@@ -5,20 +5,35 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0009_pedidos'),
+        ("store", "0009_pedidos"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Pedido',
+            name="Pedido",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='store.order')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "order",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="store.order",
+                    ),
+                ),
             ],
         ),
         migrations.DeleteModel(
-            name='Pedidos',
+            name="Pedidos",
         ),
     ]

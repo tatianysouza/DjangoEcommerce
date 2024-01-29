@@ -20,24 +20,24 @@ class Cliente(models.Model):
 
 class Produto(models.Model):
     GENEROS = (
-        ('M', 'Masculino'),
-        ('F', 'Feminino'),
-        ('U', 'Unissex'),
+        ("M", "Masculino"),
+        ("F", "Feminino"),
+        ("U", "Unissex"),
     )
 
     MARCAS = (
-        ('O', 'Olympikus'),
-        ('M', 'Mormaii'),
-        ('C', 'Converse'),
-        ('N', 'Nike'),
-        ('A', 'Adidas'),
+        ("O", "Olympikus"),
+        ("M", "Mormaii"),
+        ("C", "Converse"),
+        ("N", "Nike"),
+        ("A", "Adidas"),
     )
 
     DEPARTAMENTOS = (
-        ('E', 'Esporte'),
-        ('C', 'Calçados'),
-        ('A', 'Acessórios'),
-        ('R', 'Corrida'),
+        ("E", "Esporte"),
+        ("C", "Calçados"),
+        ("A", "Acessórios"),
+        ("R", "Corrida"),
     )
 
     name = models.CharField(max_length=200, null=True)
@@ -45,14 +45,16 @@ class Produto(models.Model):
     image = models.ImageField(null=True, blank=True)
     genero = models.CharField(max_length=1, choices=GENEROS, blank=True)
     cor = models.CharField(max_length=200, null=True, blank=True)
-    departamento_bs = models.CharField(max_length=1, null=True, choices=DEPARTAMENTOS, blank=True)
+    departamento_bs = models.CharField(
+        max_length=1, null=True, choices=DEPARTAMENTOS, blank=True
+    )
     indicado_para = models.CharField(max_length=200, null=True, blank=True)
     material = models.CharField(max_length=200, null=True, blank=True)
     material_interno = models.CharField(max_length=200, null=True, blank=True)
     altura_do_cano = models.CharField(max_length=200, null=True, blank=True)
     solado = models.CharField(max_length=200, null=True, blank=True)
     peso_do_produto = models.FloatField(blank=True, null=True)
-    marca = models.CharField(max_length=1, choices=MARCAS,null=True, blank=True)
+    marca = models.CharField(max_length=1, choices=MARCAS, null=True, blank=True)
     importante = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
@@ -70,24 +72,26 @@ class Produto(models.Model):
         verbose_name = "Produto"
         verbose_name_plural = "Produtos"
 
+
 @receiver(pre_delete, sender=Produto)
 def product_delete(sender, instance, **kwargs):
     CarrinhoItem.objects.filter(product=instance).delete()
 
+
 class TamanhoProduto(models.Model):
     TAMANHOS = (
-        ('34', '34'),
-        ('35', '35'),
-        ('36', '36'),
-        ('37', '37'),
-        ('38', '38'),
-        ('39', '39'),
-        ('40', '40'),
-        ('41', '41'),
-        ('42', '42'),
-        ('43', '43'),
-        ('44', '44'),
-        ('45', '45'),
+        ("34", "34"),
+        ("35", "35"),
+        ("36", "36"),
+        ("37", "37"),
+        ("38", "38"),
+        ("39", "39"),
+        ("40", "40"),
+        ("41", "41"),
+        ("42", "42"),
+        ("43", "43"),
+        ("44", "44"),
+        ("45", "45"),
     )
 
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
@@ -95,25 +99,26 @@ class TamanhoProduto(models.Model):
     quantidade = models.PositiveIntegerField()
 
     def __str__(self):
-        return f'{self.produto.name} - {self.tamanho}'
+        return f"{self.produto.name} - {self.tamanho}"
 
 
 class Carrinho(models.Model):
-    customer = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True, null=True)
+    customer = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, blank=True, null=True
+    )
     date_orderd = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
     transaction_id = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         if self.complete:
-            return f'{self.customer.name} - {self.transaction_id}'
+            return f"{self.customer.name} - {self.transaction_id}"
         else:
-            return f'{self.customer.name} - Carrinho'
+            return f"{self.customer.name} - Carrinho"
 
     @property
     def shipping(self):
         return True
-
 
     @property
     def get_cart_total(self):
@@ -142,14 +147,19 @@ class CarrinhoItem(models.Model):
     def __str__(self):
         if self.order is not None:
             if self.order.complete:
-                return f'{self.order.customer.name} - {self.order.transaction_id}'
+                return f"{self.order.customer.name} - {self.order.transaction_id}"
             else:
-                return f'{self.order.customer.name} - Carrinho'
+                return f"{self.order.customer.name} - Carrinho"
         else:
-            return 'CarrinhoItem sem pedido associado'
-        
+            return "CarrinhoItem sem pedido associado"
+
     def check_availability(self):
-        if self.quantity > TamanhoProduto.objects.get(produto=self.product, tamanho=self.size).quantidade:
+        if (
+            self.quantity
+            > TamanhoProduto.objects.get(
+                produto=self.product, tamanho=self.size
+            ).quantidade
+        ):
             self.delete()
 
     @property
@@ -158,7 +168,8 @@ class CarrinhoItem(models.Model):
         return total
 
     class Meta:
-        unique_together = ('product', 'order', 'size')
+        unique_together = ("product", "order", "size")
+
     class Meta:
         verbose_name = "Carrinho Item"
         verbose_name_plural = "Carrinho Itens"
@@ -174,7 +185,7 @@ class EnderecoEnvio(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.customer.name} - {self.address}'
+        return f"{self.customer.name} - {self.address}"
 
     class Meta:
         verbose_name = "Endereço de Envio"
@@ -196,20 +207,24 @@ def create_customer(sender, instance, created, **kwargs):
 def save_customer(sender, instance, **kwargs):
     pass
 
+
 class Pedido(models.Model):
-    customer = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True, blank=True)
+    customer = models.ForeignKey(
+        Cliente, on_delete=models.SET_NULL, null=True, blank=True
+    )
     transaction_id = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
     state = models.CharField(max_length=200, null=True, blank=True)
     zipcode = models.CharField(max_length=200, null=True, blank=True)
-    
+
     def __str__(self):
-        return f'{self.customer.name} - {self.transaction_id}'
+        return f"{self.customer.name} - {self.transaction_id}"
 
     class Meta:
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"
+
 
 class PedidoItem(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
@@ -218,7 +233,8 @@ class PedidoItem(models.Model):
     size = models.CharField(max_length=2)
 
     def __str__(self):
-        return f'{self.product.name} - {self.size} ({self.quantity})'
+        return f"{self.product.name} - {self.size} ({self.quantity})"
+
 
 @receiver(post_save, sender=EnderecoEnvio)
 def create_pedido(sender, instance, created, **kwargs):
@@ -239,9 +255,10 @@ def create_pedido(sender, instance, created, **kwargs):
                 quantity=item.quantity,
                 size=item.size,
             )
-            tamanho_produto = TamanhoProduto.objects.get(produto=item.product, tamanho=item.size)
+            tamanho_produto = TamanhoProduto.objects.get(
+                produto=item.product, tamanho=item.size
+            )
             tamanho_produto.quantidade -= item.quantity
             tamanho_produto.save()
         order.carrinhoitem_set.all().delete()
         order.delete()
-        

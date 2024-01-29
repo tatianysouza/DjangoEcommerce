@@ -4,20 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0022_alter_produto_altura_do_cano_alter_produto_cor_and_more'),
+        ("store", "0022_alter_produto_altura_do_cano_alter_produto_cor_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='produto',
-            name='departamento_bs',
-            field=models.CharField(blank=True, choices=[('E', 'Esporte'), ('C', 'Calçados'), ('A', 'Acessórios'), ('R', 'Corrida'), ('V', 'Vazio')], max_length=1, null=True),
+            model_name="produto",
+            name="departamento_bs",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("E", "Esporte"),
+                    ("C", "Calçados"),
+                    ("A", "Acessórios"),
+                    ("R", "Corrida"),
+                    ("V", "Vazio"),
+                ],
+                max_length=1,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='marca',
-            field=models.CharField(blank=True, choices=[('O', 'Olympikus'), ('M', 'Mormaii'), ('C', 'Converse'), ('N', 'Nike'), ('A', 'Adidas'), ('V', 'Vazio')], max_length=1, null=True),
+            model_name="produto",
+            name="marca",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("O", "Olympikus"),
+                    ("M", "Mormaii"),
+                    ("C", "Converse"),
+                    ("N", "Nike"),
+                    ("A", "Adidas"),
+                    ("V", "Vazio"),
+                ],
+                max_length=1,
+                null=True,
+            ),
         ),
     ]

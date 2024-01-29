@@ -5,19 +5,31 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0013_remove_pedido_order_pedido_transaction_id'),
+        ("store", "0013_remove_pedido_order_pedido_transaction_id"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PedidoItem',
+            name="PedidoItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_name', models.CharField(max_length=200)),
-                ('quantity', models.IntegerField()),
-                ('pedido', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='store.pedido')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product_name", models.CharField(max_length=200)),
+                ("quantity", models.IntegerField()),
+                (
+                    "pedido",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="store.pedido"
+                    ),
+                ),
             ],
         ),
     ]

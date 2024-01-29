@@ -4,60 +4,63 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0020_produto_cor'),
+        ("store", "0020_produto_cor"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='produto',
-            name='importante',
+            model_name="produto",
+            name="importante",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='altura_do_cano',
+            model_name="produto",
+            name="altura_do_cano",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='cor',
+            model_name="produto",
+            name="cor",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='departamento_bs',
+            model_name="produto",
+            name="departamento_bs",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='genero',
-            field=models.CharField(blank=True, choices=[('M', 'Masculino'), ('F', 'Feminino')], max_length=1),
+            model_name="produto",
+            name="genero",
+            field=models.CharField(
+                blank=True,
+                choices=[("M", "Masculino"), ("F", "Feminino")],
+                max_length=1,
+            ),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='indicado_para',
+            model_name="produto",
+            name="indicado_para",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='marca',
+            model_name="produto",
+            name="marca",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='material',
+            model_name="produto",
+            name="material",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='material_interno',
+            model_name="produto",
+            name="material_interno",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='produto',
-            name='solado',
+            model_name="produto",
+            name="solado",
             field=models.CharField(blank=True, max_length=200),
         ),
     ]

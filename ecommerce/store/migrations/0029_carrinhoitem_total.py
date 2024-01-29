@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0028_remove_pedido_order_items'),
+        ("store", "0028_remove_pedido_order_items"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='carrinhoitem',
-            name='total',
+            model_name="carrinhoitem",
+            name="total",
             field=models.FloatField(default=0),
         ),
     ]

@@ -4,30 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0011_pedido_customer'),
+        ("store", "0011_pedido_customer"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='pedido',
-            name='address',
+            model_name="pedido",
+            name="address",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AddField(
-            model_name='pedido',
-            name='city',
+            model_name="pedido",
+            name="city",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AddField(
-            model_name='pedido',
-            name='state',
+            model_name="pedido",
+            name="state",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
         migrations.AddField(
-            model_name='pedido',
-            name='zipcode',
+            model_name="pedido",
+            name="zipcode",
             field=models.CharField(blank=True, max_length=200, null=True),
         ),
     ]

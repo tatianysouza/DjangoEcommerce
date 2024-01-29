@@ -4,16 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0008_remove_cartitem_cart_remove_cartitem_product_and_more'),
+        ("store", "0008_remove_cartitem_cart_remove_cartitem_product_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Pedidos',
+            name="Pedidos",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
     ]

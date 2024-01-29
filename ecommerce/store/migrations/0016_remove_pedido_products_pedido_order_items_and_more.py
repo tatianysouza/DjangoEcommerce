@@ -4,22 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0015_productquantity_pedido_products_delete_pedidoitem_and_more'),
+        ("store", "0015_productquantity_pedido_products_delete_pedidoitem_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='pedido',
-            name='products',
+            model_name="pedido",
+            name="products",
         ),
         migrations.AddField(
-            model_name='pedido',
-            name='order_items',
+            model_name="pedido",
+            name="order_items",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.DeleteModel(
-            name='ProductQuantity',
+            name="ProductQuantity",
         ),
     ]

@@ -5,15 +5,19 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0010_pedido_delete_pedidos'),
+        ("store", "0010_pedido_delete_pedidos"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='pedido',
-            name='customer',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.customer'),
+            model_name="pedido",
+            name="customer",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="store.customer",
+            ),
         ),
     ]

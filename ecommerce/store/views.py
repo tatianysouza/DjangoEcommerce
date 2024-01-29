@@ -10,7 +10,54 @@ from django.contrib.auth.models import User
 
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.signals import user_logged_in
+
+
+@receiver(user_logged_in)
+def add_items_to_cart(sender, user, request, **kwargs):
+    cookieData = cookieCart(request)
+    items = cookieData["items"]
+    customer = user.cliente
+    order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
+
+    for item in items:
+        product = Produto.objects.get(id=item["product"]["id"])
+        CarrinhoItem.objects.create(
+            product=product, order=order, quantity=item["quantity"], size=item["size"]
+        )
+
+    request.session['clear_cart_cookie'] = True
+
+
+def loginUser(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            cookieData = cookieCart(request)
+            items = cookieData["items"]
+            customer = user.cliente
+            order, created = Carrinho.objects.get_or_create(customer=customer, complete=False)
+
+            for item in items:
+                product = Produto.objects.get(id=item["product"]["id"])
+                CarrinhoItem.objects.create(
+                    product=product, order=order, quantity=item["quantity"], size=item["size"]
+                )
+
+            response = redirect("store")
+            response.delete_cookie('cart')
+            return response
+
+    return render(request, "store/login.html")
+
 
 
 def register(request):
@@ -39,7 +86,9 @@ def register(request):
                 product=product, order=order, quantity=item["quantity"], size=item["size"]
             )
 
-        return redirect("login")
+        response = redirect("login")
+        response.delete_cookie('cart')
+        return response
 
     return render(request, "store/register.html")
 

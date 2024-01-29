@@ -5,20 +5,28 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0030_remove_carrinhoitem_total'),
+        ("store", "0030_remove_carrinhoitem_total"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='carrinho',
-            name='customer',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='store.cliente'),
+            model_name="carrinho",
+            name="customer",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="store.cliente",
+            ),
         ),
         migrations.AlterField(
-            model_name='carrinhoitem',
-            name='order',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='store.carrinho'),
+            model_name="carrinhoitem",
+            name="order",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="store.carrinho",
+            ),
         ),
     ]
