@@ -41,7 +41,10 @@ function addCookieItem(productId, action, size){
     }
 
     console.log("Cart:", cart);
-    document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+    var date = new Date();
+    date.setTime(date.getTime() + (2*60*60*1000)); // 2 horas
+    var expires = "; expires=" + date.toUTCString();
+    document.cookie = "cart=" + JSON.stringify(cart) + expires + ";domain=;path=/";
     location.reload();
 }
 
