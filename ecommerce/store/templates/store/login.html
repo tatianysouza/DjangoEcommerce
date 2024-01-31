@@ -1,17 +1,24 @@
 {% extends "store/main.html" %}
 {% block content %}
-<h2>Login</h2>
-<form method="POST">
-  {% csrf_token %}
-  <div class="form-group">
-    <label for="username">Nome de usuário:</label>
-    <input required class="form-control" type="text" id="username" name="username" autocomplete="username">
-  </div>
-
-  <div class="form-group">
-    <label for="password">Senha:</label>
-    <input required class="form-control" type="password" id="password" name="password" autocomplete="current-password">
-  </div>
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<div class="center-form">
+  <form method="POST" id="new-form" class="new-form">
+    <h2 class="new-form-title">LOGIN</h2>
+    {% csrf_token %}
+    <div class="new-input-container">
+      <label for="username">Nome de usuário:</label>
+      <input required class="form-control" type="text" id="username" name="username" autocomplete="username" placeholder="Username">
+    </div>
+    
+    <div class="new-input-container">
+      <label for="password">Senha:</label>
+      <input required class="form-control" type="password" id="password" name="password" autocomplete="current-password" placeholder="Senha">
+    </div>
+    <button type="submit" class="new-submit">Login</button>
+    <hr>
+    <p class="new-signup-link">
+        No account?
+        <a href="{% url 'register' %}">Sign up</a>
+    </p>
+  </form>
+</div>
 {% endblock %}

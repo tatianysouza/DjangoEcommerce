@@ -1,29 +1,36 @@
 {% extends "store/main.html" %}
 {% block content %}
-<h2>Cadastro</h2>
-<form method="POST" id="registerForm">
+<div class="center-form-cad">
+  <form method="POST" id="new-form" class="new-form">
+    <h2 class="new-form-title">Cadastro</h2>
     {% csrf_token %}
-    <div class="form-group">
+    <div class="new-input-container">
       <label for="username">Nome de usuário:</label>
-      <input required class="form-control" type="text" id="username" name="username" required>
+      <input required style="width: 350px;" class="form-control" type="text" id="username" name="username" autocomplete="username" placeholder="Username">
     </div>
-    <div class="form-group">
+    <div class="new-input-container">
       <label for="email">Email:</label>
-      <input required class="form-control" type="email" id="email" name="email" required>
+      <input required style="width: 350px;" class="form-control" type="email" id="email" name="email" autocomplete="email" placeholder="Email">
     </div>
-    <div class="form-group">
+    <div class="new-input-container">
       <label for="password">Senha:</label>
-      <input required class="form-control" type="password" id="password" name="password" required>
+      <input required style="width: 350px;" class="form-control" type="password" id="password" name="password" autocomplete="new-password" placeholder="Senha">
     </div>
-    <div class="form-group">
+    <div class="new-input-container">
       <label for="confirmPassword">Confirme a Senha:</label>
-      <input required class="form-control" type="password" id="confirmPassword" required>
+      <input required style="width: 350px;" class="form-control" type="password" id="confirmPassword" autocomplete="new-password" placeholder="Confirme a Senha">
     </div>
-    <button type="submit" class="btn btn-primary">Cadastro</button>
-  </form>  
+    <button type="submit" class="new-submit">Cadastro</button>
+    <hr>
+    <p class="new-signup-link">
+        Já tem uma conta?
+        <a href="{% url 'login' %}">Login</a>
+    </p>
+  </form>
+</div>
 
 <script>
-  document.getElementById('registerForm').addEventListener('submit', function(event) {
+    document.getElementById('new-form').addEventListener('submit', function(event) {
       var password = document.getElementById('password').value;
       var confirmPassword = document.getElementById('confirmPassword').value;
 

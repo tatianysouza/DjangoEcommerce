@@ -283,7 +283,7 @@ h6 {
 
 .prod-radio-tile-group .prod-input-container .prod-radio-tile:hover {
     background-color: white;
-    color: #9283F1; 
+    color: #9283F1;
 }
 
 .prod-radio-tile-group .prod-input-container .prod-radio-tile-label {
@@ -305,4 +305,108 @@ h6 {
 .prod-radio-tile-group .prod-input-container .prod-radio-button:checked+.prod-radio-tile .prod-radio-tile-label {
     color: white;
     background-color: #9283F1;
+}
+
+
+#new-form.new-form {
+    background-color: #fff;
+    display: block;
+    padding: 3rem;
+    max-width: 650px;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+#new-form .new-form-title {
+    font-size: 1.8rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+}
+
+#new-form .new-input-container {
+    position: relative;
+}
+
+#new-form .new-input-container input,
+#new-form .new-form button {
+    outline: none;
+    border: 1px solid #e5e7eb;
+    margin: 8px 0;
+}
+
+#new-form .new-input-container input {
+    background-color: #fff;
+    padding: 1rem;
+    padding-right: 3rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    width: 300px;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+}
+
+#new-form .new-submit {
+    display: block;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    background-color: #4F46E5;
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    width: 100%;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#new-form .new-signup-link {
+    color: #6B7280;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+}
+
+#new-form .new-signup-link a {
+    text-decoration: underline;
+}
+
+.center-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: -120px;
+}
+
+
+#new-form .new-input-container label {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+#new-form .new-input-container input:focus {
+    border-color: #3d0099;
+}
+
+#new-form .new-submit:hover {
+    color: #3d0099;
+}
+
+#new-form .new-input-container label {
+    margin-bottom: -30px;
+}
+
+.center-form-cad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: -70px;
 }
