@@ -219,7 +219,10 @@ class Pedido(models.Model):
     zipcode = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.customer.name} - {self.transaction_id}"
+        if self.customer:
+            return f"{self.customer.name} - {self.transaction_id}"
+        else:
+            return f"Cliente excluído - {self.transaction_id}"
 
     class Meta:
         verbose_name = "Pedido"
