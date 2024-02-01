@@ -192,3 +192,16 @@ def product_detail(request, product_id):
         "sizes_available": sizes_available
     }
     return render(request, "store/product_detail.html", context)
+
+def products(request, category=None):
+    if category == 'corrida':
+        products = Produto.objects.filter(departamento_bs='R')
+    elif category == 'colecao':
+        products = Produto.objects.all()[:20]
+    elif category == 'esportes':
+        products = Produto.objects.filter(departamento_bs='E')
+    else:
+        products = Produto.objects.none()
+
+    context = {'products': products}
+    return render(request, 'store/products.html', context)
