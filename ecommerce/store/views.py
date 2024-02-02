@@ -12,7 +12,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.signals import user_logged_in
 
 
@@ -185,15 +185,17 @@ def product_detail(request, product_id):
         sizes_in_cart = {}
 
     sizes_available = [(size.tamanho, size.quantidade > sizes_in_cart.get(size.tamanho, 0)) for size in product.tamanhoproduto_set.all()]
-    favoritos_ids = request.user.favorito_set.values_list('product__id', flat=True)
-    
+    if request.user.is_authenticated:
+        favoritos_ids = request.user.favorito_set.values_list('product__id', flat=True)
+    else:
+        favoritos_ids = []
+        
     context = {
         "product": product, 
         "cartItems": cartItems, 
         "sizes_available": sizes_available,
         "favoritos_ids": favoritos_ids,
     }
-    
     return render(request, "store/product_detail.html", context)
 
 def products(request, category=None):
@@ -213,14 +215,21 @@ def products(request, category=None):
 
 
 def update_favoritos(request):
-    product_id = request.POST.get('product_id')
-    product = Produto.objects.get(id=product_id)
+    if not request.user.is_authenticated:
+        request.session['product_id'] = request.POST.get('product_id')
+        return redirect_to_login(request.path, login_url='/login/')
+    product_id = request.session.get('product_id') or request.POST.get('product_id')
+    try:
+        product = Produto.objects.get(id=product_id)
+    except Produto.DoesNotExist:
+        return redirect('product_detail', product_id=product_id)
     favorito, created = Favorito.objects.get_or_create(user=request.user, product=product)
     if not created:  
         favorito.delete()
     return redirect('product_detail', product_id=product.id)
 
 
+@login_required(login_url='login')
 def favoritos(request):
     favoritos = Favorito.objects.filter(user=request.user)
     return render(request, 'store/favoritos.html', {'favoritos': favoritos})

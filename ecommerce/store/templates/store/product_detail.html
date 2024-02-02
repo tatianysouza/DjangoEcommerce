@@ -60,7 +60,7 @@
         <hr>
         <div class="button-container">
             <button id="add-to-cart-button" data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart" disabled>Adicionar ao carrinho</button>
-            <form method="post" action="{% url 'update_favoritos' %}" id="favoriteForm">
+            <form method="post" action="{% url 'update_favoritos' %}?next={{ request.path }}" id="favoriteForm">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <label class="container-heart">
