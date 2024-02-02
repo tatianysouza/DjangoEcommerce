@@ -218,7 +218,7 @@ def update_favoritos(request):
     if not request.user.is_authenticated:
         request.session['product_id'] = request.POST.get('product_id')
         return redirect_to_login(request.path, login_url='/login/')
-    product_id = request.session.get('product_id') or request.POST.get('product_id')
+    product_id = request.session.pop('product_id', None) or request.POST.get('product_id')
     try:
         product = Produto.objects.get(id=product_id)
     except Produto.DoesNotExist:
