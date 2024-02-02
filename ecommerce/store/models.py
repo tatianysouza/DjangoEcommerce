@@ -265,3 +265,7 @@ def create_pedido(sender, instance, created, **kwargs):
             tamanho_produto.save()
         order.carrinhoitem_set.all().delete()
         order.delete()
+
+class Favorito(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Produto, on_delete=models.CASCADE)

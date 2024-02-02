@@ -69,3 +69,19 @@ function updateUserOrder(productId, action, size) {
         location.reload();
     });
 }
+
+
+function updateFavoritos(productId, checkboxElem) {
+    var isFavorite = checkboxElem.checked;
+    $.ajax({
+        url: '/update_favoritos/',
+        data: {
+            'product_id': productId,
+            'is_favorite': isFavorite
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}

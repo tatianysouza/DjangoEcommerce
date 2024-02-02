@@ -83,7 +83,7 @@
 		</div>
 				  
 		  <div class="form-inline my-2 my-lg-0">
-			<a href="#" class="btn btn-warning">
+			<a href="{% url 'favoritos' %}" class="btn btn-warning">
 				<img src="{% static 'images/coracao.png' %}" alt="Login Icon" style="width: 20px; height: 20px;">
 				Favoritos
 			</a>
@@ -117,11 +117,10 @@
 		<div class="box">
 			<a href="{% url 'products' 'colecao' %}" class="link">COLEÇÃO</a>
 			<a href="{% url 'products' 'corrida' %}" class="link">CORRIDA</a>
-			<a href="{% url 'products' 'esportes' %}" class="link">ESPORTES</a>
+			<a href="{% url 'products' 'esportes' %}" class="link">ESPORTIVOS</a>
 			<a href="#" class="link">FUTEBOL</a>
 			<a href="#" class="link">PROMOÇÕES</a>
 			<a href="#" class="link">LANÇAMENTOS</a>
-			<a href="#" class="link">CUPONS</a>
 		</div>
 	</header>
     

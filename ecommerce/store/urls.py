@@ -19,4 +19,6 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(next_page="store"), name="logout"),
     path("register/", views.register, name="register"),
     path('products/<str:category>/', views.products, name='products'),
+    path('update_favoritos/', views.update_favoritos, name='update_favoritos'),
+    path('favoritos/', views.favoritos, name='favoritos'),
 ]

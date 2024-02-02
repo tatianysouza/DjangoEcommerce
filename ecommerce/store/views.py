@@ -203,5 +203,21 @@ def products(request, category=None):
     else:
         products = Produto.objects.none()
 
-    context = {'products': products}
+    data = cartData(request)
+    cartItems = data["cartItems"]
+    context = {'products': products,"cartItems": cartItems}
     return render(request, 'store/products.html', context)
+
+
+def update_favoritos(request):
+    product_id = request.POST.get('product_id')
+    product = Produto.objects.get(id=product_id)
+    favorito, created = Favorito.objects.get_or_create(user=request.user, product=product)
+    if not created:  
+        favorito.delete()
+    return redirect('product_detail', product_id=product.id)
+
+
+def favoritos(request):
+    favoritos = Favorito.objects.filter(user=request.user)
+    return render(request, 'store/favoritos.html', {'favoritos': favoritos})
