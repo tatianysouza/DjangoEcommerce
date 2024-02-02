@@ -185,12 +185,15 @@ def product_detail(request, product_id):
         sizes_in_cart = {}
 
     sizes_available = [(size.tamanho, size.quantidade > sizes_in_cart.get(size.tamanho, 0)) for size in product.tamanhoproduto_set.all()]
-
+    favoritos_ids = request.user.favorito_set.values_list('product__id', flat=True)
+    
     context = {
         "product": product, 
         "cartItems": cartItems, 
-        "sizes_available": sizes_available
+        "sizes_available": sizes_available,
+        "favoritos_ids": favoritos_ids,
     }
+    
     return render(request, "store/product_detail.html", context)
 
 def products(request, category=None):
