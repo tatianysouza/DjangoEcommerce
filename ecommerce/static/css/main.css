@@ -448,3 +448,13 @@ header {
     color: #3d0099;
     text-decoration: none;
 }
+
+.leaderboard-banner img {
+    width: 100%;
+    height: 100px; 
+    object-fit: cover; 
+}
+
+.leaderboard-banner {
+    margin-top: 20px;
+}

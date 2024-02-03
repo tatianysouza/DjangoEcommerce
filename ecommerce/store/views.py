@@ -236,5 +236,7 @@ def favoritos(request):
 
 def store(request):
     carousel_images = CarouselImage.objects.all()
-    context = {'carousel_images': carousel_images}
+    data = cartData(request)
+    cartItems = data["cartItems"]
+    context = {'carousel_images': carousel_images, "cartItems": cartItems}
     return render(request, 'store/store.html', context)
