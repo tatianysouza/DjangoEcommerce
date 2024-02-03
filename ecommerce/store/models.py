@@ -269,3 +269,10 @@ def create_pedido(sender, instance, created, **kwargs):
 class Favorito(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Produto, on_delete=models.CASCADE)
+
+class CarouselImage(models.Model):
+    image = models.ImageField(upload_to='carousel_images/')
+    alt_text = models.CharField(max_length=255, help_text='Alt da imagem')
+
+    def __str__(self):
+        return self.alt_text

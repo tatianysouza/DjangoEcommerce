@@ -233,3 +233,8 @@ def update_favoritos(request):
 def favoritos(request):
     favoritos = Favorito.objects.filter(user=request.user)
     return render(request, 'store/favoritos.html', {'favoritos': favoritos})
+
+def store(request):
+    carousel_images = CarouselImage.objects.all()
+    context = {'carousel_images': carousel_images}
+    return render(request, 'store/store.html', context)

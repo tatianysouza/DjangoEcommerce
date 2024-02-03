@@ -1,17 +1,26 @@
 {% extends "store/main.html" %}
 {% load static %}
 {% block content %}
-    <div class="row">
-        {% for product in products %}
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{{product.imageURL}}" alt="">
-            <div class="box-element product">
-                <h6><strong>{{product.name}}</strong></h6>
-                <hr>
-                <a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">Ver</a>
-                <h4 style="display: inline-block; float: right ;"><strong>R${{product.price|floatformat:2}}</strong></h4>
-            </div>
-        </div>
-        {% endfor %}
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      {% for image in carousel_images %}
+      <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+      {% for image in carousel_images %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img class="d-block w-100" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+      </div>
+      {% endfor %}
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>  
 {% endblock content %}
