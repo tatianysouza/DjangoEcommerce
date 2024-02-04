@@ -9,9 +9,13 @@
                 <div class="box-element product">
                     <img class="thumbnail" src="{{product.imageURL}}" alt="">
                     <h6><strong>{{product.name}}</strong></h6>
+                    {% if product.valor_original %}
+                    <p class="starting-from" style="text-decoration: line-through;">R${{product.valor_original|floatformat:2}}</p>
+                    {% else %}
                     <p class="starting-from">A partir de:</p>
-                    <h4 class="price" style="display: inline-block;"><strong>R${{product.price|floatformat:2}}</strong></h4>
-                </div>
+                    {% endif %}
+                    <h4 class="price" style="display: inline-block; float: right ;"><strong>R${{product.price|floatformat:2}}</strong></h4>
+                </div>                
             </a>
         </div>
         {% empty %}

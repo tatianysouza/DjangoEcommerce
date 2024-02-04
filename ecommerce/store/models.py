@@ -42,6 +42,7 @@ class Produto(models.Model):
 
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
+    valor_original = models.FloatField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     genero = models.CharField(max_length=1, choices=GENEROS, blank=True)
     cor = models.CharField(max_length=200, null=True, blank=True)

@@ -9,7 +9,7 @@ class TamanhoProdutoInline(admin.TabularInline):
 
 class ProdutoAdmin(admin.ModelAdmin):
     inlines = [TamanhoProdutoInline]
-
+    list_display = ['name', 'price', 'valor_original']
 
 class PedidoItemInline(admin.TabularInline):
     model = PedidoItem
