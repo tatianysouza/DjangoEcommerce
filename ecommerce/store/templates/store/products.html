@@ -4,14 +4,15 @@
     <h1>{{ category|capfirst }}</h1>
     <div class="row">
         {% for product in products %}
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{{product.imageURL}}" alt="">
-            <div class="box-element product">
-                <h6><strong>{{product.name}}</strong></h6>
-                <hr>
-                <a class="btn btn-outline-success" href="{% url 'product_detail' product.id %}">Ver</a>
-                <h4 style="display: inline-block; float: right ;"><strong>R${{product.price|floatformat:2}}</strong></h4>
-            </div>
+        <div class="col-lg-3">
+            <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: inherit;">
+                <div class="box-element product">
+                    <img class="thumbnail" src="{{product.imageURL}}" alt="">
+                    <h6><strong>{{product.name}}</strong></h6>
+                    <p class="starting-from">A partir de:</p>
+                    <h4 class="price" style="display: inline-block;"><strong>R${{product.price|floatformat:2}}</strong></h4>
+                </div>
+            </a>
         </div>
         {% empty %}
         <p>Nenhum produto encontrado.</p>

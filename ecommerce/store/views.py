@@ -67,13 +67,11 @@ def register(request):
 
 
 def store(request):
+    carousel_images = CarouselImage.objects.all()
     data = cartData(request)
     cartItems = data["cartItems"]
-
-    products = Produto.objects.all()
-    context = {"products": products, "cartItems": cartItems}
-    return render(request, "store/store.html", context)
-
+    context = {'carousel_images': carousel_images, "cartItems": cartItems}
+    return render(request, 'store/store.html', context)
 
 def cart(request):
     data = cartData(request)
@@ -233,10 +231,3 @@ def update_favoritos(request):
 def favoritos(request):
     favoritos = Favorito.objects.filter(user=request.user)
     return render(request, 'store/favoritos.html', {'favoritos': favoritos})
-
-def store(request):
-    carousel_images = CarouselImage.objects.all()
-    data = cartData(request)
-    cartItems = data["cartItems"]
-    context = {'carousel_images': carousel_images, "cartItems": cartItems}
-    return render(request, 'store/store.html', context)
