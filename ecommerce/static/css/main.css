@@ -3,6 +3,7 @@
 body {
     background-color: hsl(0, 0%, 98%);
     font-family: "Jost", sans-serif;
+    /* overflow-x: hidden; */
 }
 
 h1,
@@ -475,9 +476,9 @@ header {
 }
 
 .leaderboard-banner img {
-    width: 119.5%;
-    height: 101px;
-    object-fit: cover;
+    width: 99%;
+    height: 108px;
+    object-fit: contain;
     margin-left: 14px;
 }
 
@@ -485,6 +486,23 @@ header {
     margin-top: 20px;
 }
 
-.container-fluid {
+.carousel {
+    display: flex;
+    overflow: hidden;
     width: 122%;
+    transform: translateX(-9%);
+} 
+
+.carousel-image {
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.row {
+    margin-left: 9%;
+    margin-right:5%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }

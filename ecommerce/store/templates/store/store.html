@@ -1,25 +1,12 @@
 {% extends "store/main.html" %}
 {% load static %}
 {% block content %}
-<style>
-    .container{
-        margin-left: 5%;  
-    }
-</style>
-<div class="container-fluid mx-0">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
+<div class="top-container">
+    <div class="carousel">
         {% for image in carousel_images %}
-        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+        <img class="carousel-image" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
         {% endfor %}
-        </ol>
-        <div class="carousel-inner">
-        {% for image in carousel_images %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            <img class="d-block w-100" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
-        </div>
-        {% endfor %}
-        </div>
+    </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -33,7 +20,7 @@
     <div class="leaderboard-banner">
         <img src="{% static 'images/new_leaderboard.png' %}" alt="Descrição do banner">
     </div>
-    <div style="margin-left: 12%; margin-top 2%" class="row">
+    <div class="row">
     {% for product in random_products %}
         <div class="col-lg-3">
             <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: inherit;">
@@ -51,5 +38,30 @@
         </div>
     {% endfor %}
     </div>
+<script>
+    var carouselImages = document.querySelectorAll('.carousel-image');
+    var currentIndex = 0;
+
+    function updateCarousel() {
+        for (var i = 0; i < carouselImages.length; i++) {
+            carouselImages[i].style.transform = 'translateX(' + (-100 * currentIndex) + '%)';
+        }
+    }
+
+    setInterval(function() {
+        currentIndex = (currentIndex + 1) % carouselImages.length;
+        updateCarousel();
+    }, 3000);  // 3 segundos
+
+    document.querySelector('.carousel-control-prev').addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+        updateCarousel();
+    });
+
+    document.querySelector('.carousel-control-next').addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % carouselImages.length;
+        updateCarousel();
+    });
+</script>
 {% endblock content %}
 
