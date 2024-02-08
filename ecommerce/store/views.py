@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
 import datetime
+import time
 
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
@@ -70,7 +71,16 @@ def store(request):
     carousel_images = CarouselImage.objects.all()
     data = cartData(request)
     cartItems = data["cartItems"]
-    context = {'carousel_images': carousel_images, "cartItems": cartItems}
+
+    if 'product_ids' in request.session and 'last_update' in request.session and time.time() - request.session['last_update'] < 86400:
+        product_ids = request.session['product_ids']
+        random_products = Produto.objects.filter(id__in=product_ids)
+    else:
+        random_products = Produto.objects.exclude(valor_original__isnull=True).order_by('?')[:4]
+        request.session['product_ids'] = [product.id for product in random_products]
+        request.session['last_update'] = time.time()
+
+    context = {'random_products': random_products, 'carousel_images': carousel_images, "cartItems": cartItems}
     return render(request, 'store/store.html', context)
 
 def cart(request):
