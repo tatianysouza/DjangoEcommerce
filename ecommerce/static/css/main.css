@@ -506,3 +506,19 @@ header {
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.purple-line {
+    margin-top: 5%;
+    margin-right: 9.5%;
+    margin-left: 10%;
+    height: 31px;
+    background-color: #4D00E6;
+    margin-bottom: -5%; 
+}
+
+.purple-line h5 {
+    line-height: 31px; 
+    color: white;
+    margin-left: 1%;
+    font-weight: revert;
+}
