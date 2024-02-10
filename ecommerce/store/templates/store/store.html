@@ -1,6 +1,16 @@
 {% extends "store/main.html" %}
 {% load static %}
 {% block content %}
+<style>
+    .row {
+        margin-left: 9%;
+        margin-right:5%;
+        margin-top: 2%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+</style>
 <div class="top-container">
     <div class="carousel">
         {% for image in carousel_images %}

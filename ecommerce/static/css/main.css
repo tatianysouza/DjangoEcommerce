@@ -498,15 +498,6 @@ header {
     transition: transform 0.5s ease-in-out;
 }
 
-.row {
-    margin-left: 9%;
-    margin-right:5%;
-    margin-top: 2%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
 .purple-line {
     margin-top: 5%;
     margin-right: 9.5%;
