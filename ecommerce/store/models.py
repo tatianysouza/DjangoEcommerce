@@ -43,6 +43,7 @@ class Produto(models.Model):
         ("C", "Calçados"),
         ("A", "Acessórios"),
         ("R", "Corrida"),
+        ("F", "Futebol"),
     )
 
     name = models.CharField(max_length=200, null=True)
