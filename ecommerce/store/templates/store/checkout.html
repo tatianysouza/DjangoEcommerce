@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-6">
-            <div class="box-element" id="form-wrapper">
+            <div class="box-elemento" id="form-wrapper">
                 <form id="form">
                     {% csrf_token %}
                     {% if cartItems > 0 %}
@@ -35,13 +35,13 @@
             </div>
             <br>
 
-            <div class="box-element hidden" id="payment-info">
+            <div class="box-elemento hidden" id="payment-info">
                 <small>Paypay Options</small>
                 <button id="make-payment">Make Payment</button>
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="box-element">
+            <div class="box-elemento">
                 <a  class="btn btn-outline-dark" href="{% url 'cart' %}">← Back to Cart</a>
                 <hr>
                 <h3>Order Summary</h3>

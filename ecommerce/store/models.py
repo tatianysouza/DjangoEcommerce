@@ -31,6 +31,11 @@ class Produto(models.Model):
         ("C", "Converse"),
         ("N", "Nike"),
         ("A", "Adidas"),
+        ("P", "Puma"),
+        ("A", "Asics"),
+        ("Z", "Mizuno"),
+        ("V", "Vans"),
+        ("F", "Fila"),
     )
 
     DEPARTAMENTOS = (

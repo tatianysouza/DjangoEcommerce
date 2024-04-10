@@ -27,6 +27,13 @@ h6 {
     margin-top: 20%;
 }
 
+.box-elemento {
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+}
+
 .price {
     position: absolute; 
     bottom: 10px; 
