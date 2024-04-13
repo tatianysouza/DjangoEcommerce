@@ -36,8 +36,7 @@
 
     .button-container1 {
         display: inline-grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 5px;
+        grid-template-columns: repeat(6, 1fr);
         margin-left: -2%;
     }
     
@@ -45,6 +44,19 @@
         max-width: 50px;
     }
     
+    h2{
+        font-weight: revert;
+    }
+
+    h1{
+        font-weight: revert;
+        color:#4D00E6;
+    }
+
+    h6.starting-from {
+        text-decoration: line-through;
+        font-size: 16px;
+    }
     
 </style>
 <div class="product-detail-container">
@@ -53,9 +65,12 @@
     </div>
     <div class="product-info">
         <h1>{{ product.name }}</h1>
-        <hr>
+        {% if product.valor_original %}
+            <h6 class="starting-from" >R$ {{ product.valor_original|floatformat:2 }}</h6>
+        {% endif %}
         <h2>R$ {{ product.price }}</h2>
-        <hr>
+        <h6>Vendido e enviado por <span style="color:#4D00E6;">Dazzle</span></h6>
+        <h6><span style="font-weight:bold;">Cor: </span>{{product.cor}}</h6>
         <div class="button-container1">
             {% for tamanho, is_available in sizes_available %}
                 {% if is_available %}
@@ -72,7 +87,7 @@
         </div>
         <hr>
         <div class="button-container">
-            <button id="add-to-cart-button" data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart" disabled>Adicionar ao carrinho</button>
+            <button id="add-to-cart-button" data-product="{{product.id}}" data-action="add" class="cssbuttons-io update-cart" disabled>Adicionar ao carrinho</button>
             <form method="post" action="{% url 'update_favoritos' %}?next={{ request.path }}" id="favoriteForm">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
@@ -94,6 +109,8 @@
     for (var i = 0; i < sizeRadios.length; i++) {
         sizeRadios[i].addEventListener('change', function() {
             addToCartButton.disabled = false;
+            addToCartButton.classList.remove('disabled');
+            addToCartButton.classList.add('enabled');
         });
     }
     </script>
