@@ -33,6 +33,19 @@
     .container-heart input:checked~svg {
         fill: #E3474F;
     }
+
+    .button-container1 {
+        display: inline-grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+        margin-left: -2%;
+    }
+    
+    .button-container1 .prod-radio-tile-group {
+        max-width: 50px;
+    }
+    
+    
 </style>
 <div class="product-detail-container">
     <div class="product-image">
@@ -43,7 +56,7 @@
         <hr>
         <h2>R$ {{ product.price }}</h2>
         <hr>
-        <div class="button-container">
+        <div class="button-container1">
             {% for tamanho, is_available in sizes_available %}
                 {% if is_available %}
                     <div class="prod-radio-tile-group">
