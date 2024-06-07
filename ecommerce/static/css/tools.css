@@ -1,0 +1,43 @@
+/*css da galeria na página de detalhes do produto*/
+
+.conteiner {
+    display: flex;
+    justify-content: space-between;
+    width: 1120px;
+    height: 781px;
+    margin-top: 10%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.retangulo {
+    margin: 5px;
+    background-color: lightgray;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+#retangulo1 {
+    width: 478px;
+    height: 441px;
+}
+
+#retangulo2 {
+    width: 382px;
+    height: 419px;
+}
+
+#retangulo3 {
+    width: 639px;
+    height: 464px;
+}
+
+#retangulo4 {
+    width: 735px;
+    height: 439px;
+    margin-left: -91px;
+}

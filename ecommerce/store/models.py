@@ -50,6 +50,10 @@ class Produto(models.Model):
     price = models.FloatField()
     valor_original = models.FloatField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    image1 = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    image2 = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    image3 = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    image4 = models.ImageField(upload_to='product_images/', null=True, blank=True)
     genero = models.CharField(max_length=1, choices=GENEROS, blank=True)
     cor = models.CharField(max_length=200, null=True, blank=True)
     departamento_bs = models.CharField(

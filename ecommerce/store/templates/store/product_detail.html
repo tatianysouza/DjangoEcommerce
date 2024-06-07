@@ -101,6 +101,24 @@
         </div>             
     </div>
 </div>
+<div class="conteiner">
+        <div class="column">
+            {% if product.image1 %}
+                <div id="retangulo1" style="background-image: url({{ product.image1.url }});" class="retangulo"></div>
+            {% endif %}
+            {% if product.image2 %}
+                <div id="retangulo2" style="background-image: url({{ product.image2.url }});" class="retangulo"></div>
+            {% endif %}
+        </div>
+        <div class="column">
+            {% if product.image3 %}
+                <div id="retangulo3" style="background-image: url({{ product.image3.url }});" class="retangulo"></div>
+            {% endif %}
+            {% if product.image4 %}
+                <div id="retangulo4" style="background-image: url({{ product.image4.url }});" class="retangulo"></div>
+            {% endif %}
+        </div>
+</div>
 <script>
     var sizeRadios = document.querySelectorAll('.prod-radio-button');
 
