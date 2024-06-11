@@ -101,6 +101,7 @@
         </div>             
     </div>
 </div>
+<h4  style="color:#4D00E6; margin-bottom: -6rem; margin-top: 7%; margin-left:0.5%; font-weight:bold;">Veja mais sobre o produto:</h4>
 <div class="conteiner">
         <div class="column">
             {% if product.image1 %}
@@ -118,6 +119,28 @@
                 <div id="retangulo4" style="background-image: url({{ product.image4.url }});" class="retangulo"></div>
             {% endif %}
         </div>
+</div>
+<div>
+    <div>
+        {% if product.descricao %}
+        <h4 style="margin-top: 10%; color: black;">Descrição: </h4>
+        <h6 style="margin-top:2%;">{{ product.descricao }}</h6>
+        {% endif %}
+        <h4 style="margin-top: 4%; color: black; margin-bottom: 2%;">Características do produto: </h4>
+        <h6><span style="color:black;">Nome:</span> {{ product.name }}</h6>
+        <h6><span style="color:black;">Marca:</span> {{ product.marca }}</h6>
+        {% if product.genero %}<h6><span style="color:black;">Gênero:</span> {{ product.genero }}</h6>{% endif %}
+        {% if product.cor %}<h6><span style="color:black;">Cor:</span> {{ product.cor }}</h6>{% endif %}
+        {% if product.departamento_bs %}<h6><span style="color:black;">Departamento bs:</span> {{ product.departamento_bs }}</h6>{% endif %}
+        {% if product.indicado_para %}<h6><span style="color:black;">Indicado para:</span> {{ product.indicado_para }}</h6>{% endif %}
+        {% if product.material %}<h6><span style="color:black;">Material:</span> {{ product.material }}</h6>{% endif %}
+        {% if product.material_interno %}<h6><span style="color:black;">Material Interno:</span> {{ product.material_interno }}</h6>{% endif %}
+        {% if procuct.altura_do_cano %}<h6><span style="color:black;">Altura do cano:</span> {{ product.altura_do_cano }}</h6>{% endif %}
+        {% if product.solado %}<h6><span style="color:black;">Solado:</span> {{ product.solado }}</h6>{% endif %}
+        {% if product.peso %}<h6><span style="color:black;">Peso do produto:</span> {{ product.peso_do_produto }}g</h6>{% endif %}
+        
+        {% if product.importante %}<h6><span style="color:black;">Importante:</span> {{ product.importante }}</h6>{% endif %}
+    </div>
 </div>
 <script>
     var sizeRadios = document.querySelectorAll('.prod-radio-button');
