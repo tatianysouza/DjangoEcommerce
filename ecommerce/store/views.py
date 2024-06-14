@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.signals import user_logged_in
 
+from django.db.models import Q
 
 @receiver(user_logged_in)
 def add_items_to_cart(sender, user, request, **kwargs):
@@ -181,28 +182,44 @@ def search_results(request):
     return render(request, "store/search_results.html", context)
 
 
+from django.db.models import Q
+
 def product_detail(request, product_id):
     data = cartData(request)
     cartItems = data["cartItems"]
 
     product = Produto.objects.get(id=product_id)
-    
+
+    similar_products = Produto.objects.filter(marca=product.marca, genero=product.genero, departamento_bs=product.departamento_bs).exclude(id=product_id)
+
+    if similar_products.count() < 4:
+        similar_products = Produto.objects.filter(
+            Q(marca=product.marca) | Q(genero=product.genero) | Q(departamento_bs=product.departamento_bs)
+        ).exclude(id=product_id)
+
+    if similar_products.count() < 4:
+        num_additional_products = 4 - similar_products.count()
+        additional_products = Produto.objects.exclude(id=product_id).order_by('?')[:num_additional_products]
+        similar_products = list(similar_products) + list(additional_products)
+
     if request.user.is_authenticated:
         sizes_in_cart = {item.size: item.quantity for item in CarrinhoItem.objects.filter(product=product, order__customer=request.user.cliente)}
     else:
         sizes_in_cart = {}
 
     sizes_available = [(size.tamanho, size.quantidade > sizes_in_cart.get(size.tamanho, 0)) for size in product.tamanhoproduto_set.all()]
+
     if request.user.is_authenticated:
         favoritos_ids = request.user.favorito_set.values_list('product__id', flat=True)
     else:
         favoritos_ids = []
-        
+
     context = {
         "product": product, 
         "cartItems": cartItems, 
         "sizes_available": sizes_available,
         "favoritos_ids": favoritos_ids,
+        "similar_products": similar_products,
     }
     return render(request, "store/product_detail.html", context)
 

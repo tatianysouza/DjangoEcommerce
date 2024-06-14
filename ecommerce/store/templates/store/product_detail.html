@@ -1,5 +1,7 @@
 {% extends "store/main.html" %}
+{% load static %} 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/tools.css' %}">
 <style>
     .container-heart input {
         position: absolute;
@@ -57,7 +59,6 @@
         text-decoration: line-through;
         font-size: 16px;
     }
-    
 </style>
 <div class="product-detail-container">
     <div class="product-image">
@@ -101,7 +102,7 @@
         </div>             
     </div>
 </div>
-<h4  style="color:#4D00E6; margin-bottom: -6rem; margin-top: 7%; margin-left:0.5%; font-weight:bold;">Veja mais sobre o produto:</h4>
+<h4  style="color:#black; margin-bottom: -6rem; margin-top: 7%; margin-left:0.5%; font-weight:bold;">Veja mais sobre o produto:</h4>
 <div class="conteiner">
         <div class="column">
             {% if product.image1 %}
@@ -120,10 +121,27 @@
             {% endif %}
         </div>
 </div>
+
+<h4  style="color:#black; margin-bottom: -6rem; margin-top: 7%; font-weight:bold; z-index: 10;">Produtos similares:</h4>
+
+<div class="row">
+{% for similar_product in similar_products %}
+    <div class="col-lg-3" style="margin-top:6%;">
+        <a href="{% url 'product_detail' similar_product.id %}" style="text-decoration: none; color: inherit;">
+            <div class="box-element product">
+                <img class="thumbnail" src="{{similar_product.imageURL}}" alt="">
+                <h6><strong>{{similar_product.name}}</strong></h6>
+                <h4 class="price" style="display: inline-block; float: right ;"><strong>R${{similar_product.price|floatformat:2}}</strong></h4>
+            </div>                
+        </a>
+    </div>
+{% endfor %}
+</div>
+
 <div>
     <div>
         {% if product.descricao %}
-        <h4 style="margin-top: 10%; color: black;">Descrição: </h4>
+        <h4 style="margin-top: 3%; color: black;">Descrição: </h4>
         <h6 style="margin-top:2%;">{{ product.descricao }}</h6>
         {% endif %}
         <h4 style="margin-top: 4%; color: black; margin-bottom: 2%;">Características do produto: </h4>

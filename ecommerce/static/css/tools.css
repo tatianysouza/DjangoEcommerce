@@ -41,3 +41,13 @@
     height: 439px;
     margin-left: -91px;
 }
+
+/* Linha de produtos similares */
+.row {
+    margin-left: 9%;
+    margin-right:5%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
