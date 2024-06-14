@@ -20,30 +20,30 @@ class Cliente(models.Model):
 
 class Produto(models.Model):
     GENEROS = (
-        ("M", "Masculino"),
-        ("F", "Feminino"),
-        ("U", "Unissex"),
+        ("Masculino", "Masculino"),
+        ("Feminino", "Feminino"),
+        ("Unissex", "Unissex"),
     )
 
     MARCAS = (
-        ("O", "Olympikus"),
-        ("M", "Mormaii"),
-        ("C", "Converse"),
-        ("N", "Nike"),
-        ("A", "Adidas"),
-        ("P", "Puma"),
-        ("A", "Asics"),
-        ("Z", "Mizuno"),
-        ("V", "Vans"),
-        ("F", "Fila"),
+        ("Olympikus", "Olympikus"),
+        ("Mormaii", "Mormaii"),
+        ("Converse", "Converse"),
+        ("Nike", "Nike"),
+        ("Adidas", "Adidas"),
+        ("Puma", "Puma"),
+        ("Asics", "Asics"),
+        ("Mizuno", "Mizuno"),
+        ("Vans", "Vans"),
+        ("Fila", "Fila"),
     )
 
     DEPARTAMENTOS = (
-        ("E", "Esporte"),
-        ("C", "Calçados"),
-        ("A", "Acessórios"),
-        ("R", "Corrida"),
-        ("F", "Futebol"),
+        ("Esporte", "Esporte"),
+        ("Calçados", "Calçados"),
+        ("Acessorios", "Acessórios"),
+        ("Corrida", "Corrida"),
+        ("Futebol", "Futebol"),
     )
 
     name = models.CharField(max_length=200, null=True)
@@ -54,10 +54,10 @@ class Produto(models.Model):
     image2 = models.ImageField(upload_to='product_images/', null=True, blank=True)
     image3 = models.ImageField(upload_to='product_images/', null=True, blank=True)
     image4 = models.ImageField(upload_to='product_images/', null=True, blank=True)
-    genero = models.CharField(max_length=1, choices=GENEROS, blank=True)
+    genero = models.CharField(max_length=20, choices=GENEROS, blank=True)
     cor = models.CharField(max_length=200, null=True, blank=True)
     departamento_bs = models.CharField(
-        max_length=1, null=True, choices=DEPARTAMENTOS, blank=True
+        max_length=20, null=True, choices=DEPARTAMENTOS, blank=True
     )
     indicado_para = models.CharField(max_length=200, null=True, blank=True)
     material = models.CharField(max_length=200, null=True, blank=True)
@@ -65,7 +65,7 @@ class Produto(models.Model):
     altura_do_cano = models.CharField(max_length=200, null=True, blank=True)
     solado = models.CharField(max_length=200, null=True, blank=True)
     peso_do_produto = models.FloatField(blank=True, null=True)
-    marca = models.CharField(max_length=1, choices=MARCAS, null=True, blank=True)
+    marca = models.CharField(max_length=20, choices=MARCAS, null=True, blank=True)
     descricao = models.TextField(max_length=1400, null=True, blank=True)
     importante = models.TextField(max_length=200, null=True, blank=True)
 

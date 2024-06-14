@@ -208,15 +208,15 @@ def product_detail(request, product_id):
 
 def products(request, category=None):
     if category == 'corrida':
-        products = Produto.objects.filter(departamento_bs='R').order_by('-id')[:20]
+        products = Produto.objects.filter(departamento_bs='Corrida').order_by('-id')[:20]
     elif category == 'colecao':
         products = Produto.objects.all()[:20]
     elif category == 'esportes':
-        products = Produto.objects.filter(departamento_bs='E').order_by('-id')[:20]
+        products = Produto.objects.filter(departamento_bs='Esporte').order_by('-id')[:20]
     elif category == 'promocoes':
         products = Produto.objects.exclude(valor_original__isnull=True).order_by('-id')[:20]
     elif category == 'futebol':
-        products = Produto.objects.filter(departamento_bs='F').order_by('-id')[:20]
+        products = Produto.objects.filter(departamento_bs='Futebol').order_by('-id')[:20]
     elif category == 'lancamentos':
         products = Produto.objects.all().order_by('-id')[:20]
     else:
