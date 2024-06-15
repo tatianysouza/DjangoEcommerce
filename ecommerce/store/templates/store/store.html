@@ -4,12 +4,26 @@
 <style>
     .row {
         margin-left: 9%;
-        margin-right:5%;
+        margin-right:7.6%;
         margin-top: 2%;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
     }
+
+    .discount-banner {
+        bottom: 120px;
+        left: 0px;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-weight: 100;
+        background-color: #4d00e6;
+        padding: 0px 0;
+        position: relative;
+        opacity: 95%;
+    }
+
 </style>
 <div class="top-container">
     <div class="carousel">
@@ -39,13 +53,14 @@
     {% for product in random_products %}
         <div class="col-lg-3">
             <a href="{% url 'product_detail' product.id %}" style="text-decoration: none; color: inherit;">
-                <div class="box-element product">
+                <div class="box-element product" style="width: 270px;height: 370px;">
                     <img class="thumbnail" src="{{product.imageURL}}" alt="">
-                    <h6><strong>{{product.name}}</strong></h6>
+                    
+                    <h6 style="margin-top:10%"><strong>{{product.name}}</strong></h6>
                     {% if product.valor_original %}
-                    <p class="starting-from" style="text-decoration: line-through;">R${{product.valor_original|floatformat:2}}</p>
+                        <p class="starting-from" style="text-decoration: line-through; font-size: 0.8em;">R${{product.valor_original|floatformat:2}}</p>
                     {% else %}
-                    <p class="starting-from">A partir de:</p>
+                        <p class="starting-from">A partir de:</p>
                     {% endif %}
                     <h4 class="price" style="display: inline-block; float: right ;"><strong>R${{product.price|floatformat:2}}</strong></h4>
                 </div>                
@@ -76,6 +91,27 @@
     document.querySelector('.carousel-control-next').addEventListener('click', function() {
         currentIndex = (currentIndex + 1) % carouselImages.length;
         updateCarousel();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var products = document.querySelectorAll('.product');
+        products.forEach(function(product) {
+            var priceElement = product.querySelector('.price strong');
+            var originalPriceElement = product.querySelector('.starting-from');
+    
+            if (priceElement && originalPriceElement) {
+                var price = parseFloat(priceElement.textContent.replace('R$', '').replace(',', '.'));
+                var originalPrice = parseFloat(originalPriceElement.textContent.replace('R$', '').replace(',', '.').replace('A partir de:', '').trim());
+    
+                if (originalPrice > price) {
+                    var discountPercentage = Math.round((1 - (price / originalPrice)) * 100);
+                    var discountBanner = document.createElement('div');
+                    discountBanner.classList.add('discount-banner');
+                    discountBanner.textContent = '-' + discountPercentage + '% OFF';
+                    product.appendChild(discountBanner);
+                }
+            }
+        });
     });
 </script>
 {% endblock content %}
